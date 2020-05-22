@@ -19,6 +19,15 @@ vector<int> naive_count_segments(vector<int> starts, vector<int> ends, vector<in
   return cnt;
 }
 
+void fast_count_segments(std::vector<int> starts, std::vector<int> ends, std::vector<int> points){
+  for (i=0;i<starts.size;i++){
+    vector <int> temp;
+    for (j=0;j<points.size();++){
+
+    }
+  }
+}
+
 int main() {
   int n, m;
   std::cin >> n >> m;
@@ -30,9 +39,10 @@ int main() {
   for (size_t i = 0; i < points.size(); i++) {
     std::cin >> points[i];
   }
+  fast_count_segments(start, ends, points);
   //use fast_count_segments
-  vector<int> cnt = naive_count_segments(starts, ends, points);
+ /* vector<int> cnt = naive_count_segments(starts, ends, points);
   for (size_t i = 0; i < cnt.size(); i++) {
     std::cout << cnt[i] << ' ';
-  }
+  }*/
 }
