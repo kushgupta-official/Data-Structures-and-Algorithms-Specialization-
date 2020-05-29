@@ -1,83 +1,51 @@
-# include <iostream>
-# include <vector>
-# include <algorithm>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-struct node{
-  int data;
-  struct node* left;
-  struct node* right;
+class Node {
+public:
+    int key;
+    Node *parent;
+    vector<Node *> children;
+
+    Node() {
+      this->parent = NULL;	//initially every node parent is null
+    }
+
+    void setParent(Node *theParent) {
+      parent = theParent;
+      parent->children.push_back(this);
+    }
 };
 
-struct node *root=NULL;
-node* newNode(int key){
-  struct node* p=new node;
-  p->data=key;
-  p->left=NULL;
-  p->right=NULL;
-  return p;
-}
+int main (int argc, char **argv)
+{
+  std::ios_base::sync_with_stdio(0);
+  int n;
+  std::cin >> n;
 
-void createNode(std::vector<int> arr, int i, node *created[], node **root) 
-{ 
-    if (created[i] != NULL) 
-        return; 
-  
-    created[i] = newNode(i); 
-  
-    if (arr[i] == -1) 
-    { 
-        *root = created[i]; 
-        return; 
-    } 
-  
-    if (created[arr[i]] == NULL) 
-        createNode(arr, arr[i], created, root); 
-  
-    node *p = created[arr[i]]; 
-  
-    if (p->left == NULL) 
-        p->left = created[i]; 
-    else 
-        p->right = created[i]; 
-} 
+  std::vector<Node> nodes;
+  nodes.resize(n);
+  for (int child_index = 0; child_index < n; child_index++) {
+    int parent_index;
+    std::cin >> parent_index;
+    if (parent_index >= 0){
+      nodes[child_index].setParent(&nodes[parent_index]);
+    }
+    nodes[child_index].key = child_index;
+  }
 
-node* create_tree(std::vector<int> arr,size_t n){
-  node *created[n]; 
-    for (int i=0; i<n; i++) 
-        created[i] = NULL; 
-  
-    node *root = NULL; 
-    for (size_t i=0; i<n; i++) 
-        createNode(arr, i, created, &root); 
-  
-    return root; 
-}
-void inorder(node* p){
-  if(p){
-    inorder(p->left);
-    cout<<p->data<<" ";
-    inorder(p->right);
+  // Replace this code with a faster implementation
+  int maxHeight = 0;
+  for (int leaf_index = 0; leaf_index < n; leaf_index++) {
+    int height = 0;
+    for (Node *v = &nodes[leaf_index]; v != NULL; v = v->parent){
+      height++;
+    }
+    maxHeight = std::max(maxHeight, height);
   }
-}
-long long max_height(node *p){
-  if(p==NULL){
-    return 0;
-  }
-  else{
-    return(1+max(max_height(p->left),max_height(p->right)));
-  }
-}
-
-int main(void){
-  size_t n=0;
-  cin>>n;
-  std::vector<int> arr(n);
-  for (size_t i=0;i<n;i++){
-    cin>>arr[i];
-  }
-  root=create_tree(arr,n);
-  inorder(root);
-  cout<<endl;
-  cout<<max_height(root);
+    
+  std::cout << maxHeight << std::endl;
+  return 0;
 }
