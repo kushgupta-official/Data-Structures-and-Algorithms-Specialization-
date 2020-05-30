@@ -4,23 +4,11 @@
 
 using namespace std;
 
-class Heap{
-  std::vector<int> arr;
-  int size;
-public:
-  Heap(){
-    size=0;
-  }
-  void insert(int x){
-    arr[size]=x;
-    
-  }
-}
-
 class HeapBuilder {
- private:
   vector<int> data_;
   vector< pair<int, int> > swaps_;
+
+public:
 
   void WriteResponse() const {
     cout << swaps_.size() << "\n";
@@ -37,9 +25,37 @@ class HeapBuilder {
       cin >> data_[i];
   }
 
+  int parent(int loc){
+    return (loc-1)/2;
+  }
+  int left_child(int loc){
+    return (2*loc)+1;
+  }
+  int right_child(int loc){
+    return (2*loc)+2;
+  }
+  
+  void shiftdown(int loc){
+//    this->display();
+    int size=data_.size();
+    int maxIndex=loc;
+    int l=left_child(loc);
+    int r=right_child(loc);
+    if (l<size && data_[maxIndex]>data_[l]){
+      maxIndex=l;
+    }
+    if(r<size && data_[maxIndex]>data_[r]){
+      maxIndex=r;
+    }
+    if(loc!=maxIndex){
+      swap(data_[loc],data_[maxIndex]);  
+      swaps_.push_back(make_pair(loc,maxIndex));
+      shiftdown(maxIndex);
+    }
+  }
+
   void GenerateSwaps() {
     swaps_.clear();
-    /*
     // The following naive implementation just sorts 
     // the given sequence using selection sort algorithm
     // and saves the resulting sequence of swaps.
@@ -47,30 +63,31 @@ class HeapBuilder {
     // but in the worst case gives a quadratic number of swaps.
     //
     // TODO: replace by a more efficient implementation
-    for (int i = 0; i < data_.size(); ++i)
+    /*for (int i = 0; i < data_.size(); ++i)
       for (int j = i + 1; j < data_.size(); ++j) {
         if (data_[i] > data_[j]) {
           swap(data_[i], data_[j]);
           swaps_.push_back(make_pair(i, j));
         }
       }*/
-    heapify(data_,swaps);
+    int size=data_.size();
+    for (int i=size/2;i>=0;i--){
+      shiftdown(i);
+    }
+    /*int temp=size-1;
+    for (int i=0;i<size-1;i++){
+      swap(data_[0],data_[temp]);
+      temp--;
+      shiftdown(1);
+    }*/
   }
 
- public:
-  void Solve() {
+ void Solve() {
     ReadData();
     GenerateSwaps();
     WriteResponse();
   }
 };
-
-heapify(std::vector<int> data_,vector< pair<int, int> > &swaps_){
-  Heap heap;
-  for (int i=0;i<data_.size();i++){
-    heap.insert(data_[i]);
-  }
-}
 
 int main() {
   std::ios_base::sync_with_stdio(false);
