@@ -74,6 +74,7 @@ public:
     for (int i=size/2;i>=0;i--){
       shiftdown(i);
     }
+
     /*int temp=size-1;
     for (int i=0;i<size-1;i++){
       swap(data_[0],data_[temp]);
