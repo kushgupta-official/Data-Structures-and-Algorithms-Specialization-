@@ -3,20 +3,71 @@
 #include <vector>
 #include <algorithm>
 
-using std::string;
-using std::vector;
-using std::cin;
+using namespace std;
 
 struct Query {
-    string type, s;
+    string type;
+    string s;
     size_t ind;
 };
-
+class linkedList{
+    string str;
+    linkedList *next;
+    linkedList *head;
+public:
+    linkedList(){
+        this->head=NULL;
+    }
+    linkedList* insert(string data){
+        if (this->head==NULL){
+            this->head=new linkedList();
+            this->head->str=data;
+            this->head->next=NULL;
+        }
+        else{
+            linkedList *temp=new linkedList();
+            temp->str=data;
+            temp->next=head;
+            this->head=temp;
+        }
+        return head;
+    }
+    bool find(){
+        if(this->head==NULL){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    void delete(string data){       //not working
+        linkedList *temp=head;
+        linkedList *prev;
+        while(temp!=NULL){
+            prev=temp;
+            if(temp->str==data){
+                break;
+            }
+            temp=temp->next;
+        }
+        if (temp==head){
+            head=head->next;
+        }
+        else{
+            prev->next=temp->next;
+            temp->next=NULL;
+            free(temp);
+        }
+        return 0;
+    }
+};
 class QueryProcessor {
     int bucket_count;
     // store all strings in one vector
+    std::vector<linkedList> hash;
     vector<string> elems;
-    size_t hash_func(const string& s) const {
+
+    size_t hash_func(const string& s) const {       //function for hashing strings
         static const size_t multiplier = 263;
         static const size_t prime = 1000000007;
         unsigned long long hash = 0;
@@ -26,7 +77,10 @@ class QueryProcessor {
     }
 
 public:
-    explicit QueryProcessor(int bucket_count): bucket_count(bucket_count) {}
+    explicit QueryProcessor(int bucket_count): bucket_count(bucket_count) 
+    {
+        hash.resize(bucket_count);
+    }
 
     Query readQuery() const {
         Query query;
@@ -43,7 +97,21 @@ public:
     }
 
     void processQuery(const Query& query) {
-        if (query.type == "check") {
+        if(query.type=="add"){
+            hash[hash_func(query.s)].insert(query.s);
+        }
+        else if(query.type=="find"){
+            if(hash[hash_func(query.s)].find()){
+                cout<<"yes";
+            }
+            else{
+                cout<<"no";
+            }
+        }
+        else if (query.type=="del"){
+            hash[hash_func(query.s)].delete(query.s);
+        }
+       /* if (query.type == "check") {
             // use reverse order, because we append strings to the end
             for (int i = static_cast<int>(elems.size()) - 1; i >= 0; --i)
                 if (hash_func(elems[i]) == query.ind)
@@ -60,7 +128,7 @@ public:
                 if (it != elems.end())
                     elems.erase(it);
             }
-        }
+        }*/
     }
 
     void processQueries() {
