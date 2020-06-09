@@ -2,7 +2,10 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
 
 struct Node {
   int key;
@@ -14,23 +17,7 @@ struct Node {
 };
 
 bool IsBinarySearchTree(const vector<Node>& tree) {
-  //for left
-  for (int i=0;i<tree.size();i++){
-    if (tree[i].left==-1){
-      break;
-    }
-    if(tree[i].key<tree[tree[i].left].key){
-      return false;
-    }
-  }
-  for (int i=0;i<tree.size();i++){
-    if (tree[i].right==-1){
-      break;
-    }
-    if(tree[i].key>tree[tree[i].right].key){
-      return false;
-    }
-  }
+  // Implement correct algorithm here
   return true;
 }
 

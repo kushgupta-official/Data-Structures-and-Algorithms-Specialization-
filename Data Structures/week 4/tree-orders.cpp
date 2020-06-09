@@ -61,58 +61,31 @@ public:
     return result;
   }
 
-  vector <int> post_order() {
+  void post_order() {
     vector<int> result;
     stack <int>s;
-    // int index=0;
-    // do{
-    // 	while(index!=-1){
-    // 		if(right[index]!=-1){
-    // 			s.push(right[index]);
-    // 		}
-    // 		s.push(index);
-    // 		index=left[index];
-    // 	}
+    s.push(0);
+    while(!s.empty()){
+    	int index=s.top();
+    	s.pop();
 
-    // 	index=s.top();
-    // 	s.pop();
+    	result.push_back(key[index]);
 
-    // 	if (right[index]!=-1 && s.top()==right[index]){
-    // 		s.pop();
-    // 		s.push(index);
-    // 		index=right[index];
-    // 	}
-    // 	else{
-    // 		result.push_back(index);
-    // 		index=-1;
-    // 	}
-    // }while(!s.empty());
-    int lastVisitedNode=-1;
-    int index=0;
-    while(!s.empty() || index!=-1){
-    	if(index!=-1){
-    		s.push(index);
-    		index=left[index];
+    	if(left[index]!=-1){
+    		s.push(left[index]);
     	}
-    	else{
-    		int topNode=s.top();
-    		if (right[topNode]!=-1 && lastVisitedNode!=right[topNode]){
-    			index=right[index];
-    			
-    		}
-    		else{
-    			result.push_back(topNode);
-    			lastVisitedNode=s.top();
-    			s.pop();
-    		}
+    	if(right[index]!=-1){
+    		s.push(right[index]);
     	}
-    	cout<<key[s.top()]<<endl;
     }
-    return result;
+    for (int i = result.size()-1; i >= 0; i--) {
+    	cout << result[i] <<" ";
+	}
+  	cout << '\n';
   }
 };
 
-void print(vector <int> a) {
+void print(vector <int> a) {		//not used for postorder
   for (size_t i = 0; i < a.size(); i++) {
     if (i > 0) {
       cout << ' ';
@@ -130,7 +103,8 @@ int main (int argc, char **argv)
   t.read();
   print(t.in_order());
   print(t.pre_order());
-  print(t.post_order());
+  //print(t.post_order());
+  t.post_order();
   return 0;
 }
 
