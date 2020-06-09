@@ -14,7 +14,6 @@ struct Node {
 };
 
 bool IsBinarySearchTree(const vector<Node>& tree) {
-  //for left
   for (int i=0;i<tree.size();i++){
     if (tree[i].left==-1){
       break;
@@ -43,7 +42,7 @@ int main() {
     cin >> key >> left >> right;
     tree.push_back(Node(key, left, right));
   }
-  if (IsBinarySearchTree(tree) {
+  if (IsBinarySearchTree(tree)) {
     cout << "CORRECT" << endl;
   } else {
     cout << "INCORRECT" << endl;
