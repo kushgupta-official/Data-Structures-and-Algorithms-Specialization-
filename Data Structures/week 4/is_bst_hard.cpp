@@ -17,9 +17,11 @@ bool IsBinarySearchTree(const vector<Node>& tree) {
   if (tree.size()==0){
     return true;
   }
+  std::vector<int> result;
   stack <int>s;
   int index=0;
-  int prev=-1;
+  // int prev=-1;
+  // int prev_index=-1;
   while (!s.empty() || index!=-1){
     if (index!=-1){
         s.push(index);
@@ -28,16 +30,23 @@ bool IsBinarySearchTree(const vector<Node>& tree) {
     else{
         index=s.top();
         s.pop();
-      //  result.push_back(key[index]);
-        if (prev<tree[index].key || prev==-1){
-          prev=tree[index].key;
+        if (tree[index].left!=-1 && tree[tree[index].left].key==tree[index].key){
+          return false;
+        }
+        result.push_back(tree[index].key);
+        index=tree[index].right;
+      }
+    }
+    
+      int min=result[0];
+      for (int i=1;i<result.size();i++){
+        if (min<=result[i]){
+          min=result[i];
         }
         else{
           return false;
         }
-        index=tree[index].right;
       }
-    }
   return true;
 }
 
