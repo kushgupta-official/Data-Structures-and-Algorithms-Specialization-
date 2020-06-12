@@ -1,3 +1,10 @@
+/*sources: 
+			1. https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
+			2. https://www.techiedelight.com/inorder-tree-traversal-iterative-recursive/
+			3. https://www.techiedelight.com/preorder-tree-traversal-iterative-recursive/
+			4. https://www.techiedelight.com/postorder-tree-traversal-iterative-recursive/
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>

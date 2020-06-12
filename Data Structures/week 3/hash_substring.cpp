@@ -24,9 +24,10 @@ void print_occurrences(const std::vector<int>& output) {
 std::vector<int> get_occurrences(const Data& input) {
     const string& s = input.pattern, t = input.text;
     std::vector<int> ans;
-    for (size_t i = 0; i + s.size() <= t.size(); ++i)
+    
+   /* for (size_t i = 0; i + s.size() <= t.size(); ++i)
         if (t.substr(i, s.size()) == s)
-            ans.push_back(i);
+            ans.push_back(i);*/
     return ans;
 }
 
