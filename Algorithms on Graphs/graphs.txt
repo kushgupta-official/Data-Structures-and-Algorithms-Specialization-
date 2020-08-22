@@ -1,0 +1,5 @@
+Undirected Graph:
+
+There is a major difference between depth order and Depth first Search(DFS).
+In Depth order we take one starting point, and than traverse through all nodes which are connected directly or indirectly from it.
+DFS also do the same with a difference that ever even if the graph is breaked at some point, DFS algo will traverse them too. depth order will not work performing an operation such as to find number of islands in a sea but only paths in an island in a sea.
