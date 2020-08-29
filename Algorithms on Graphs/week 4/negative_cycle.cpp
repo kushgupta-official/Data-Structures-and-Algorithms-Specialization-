@@ -33,7 +33,8 @@ ll negative_cycle(vector<vector<ll> > &adj, vector<vector<ll> > &cost) {
   for (ll i=1;i<adj.size();i++){
   	for (ll j=0;j<adj[i].size();j++){
  		if(distance[adj[i][j]]>distance[i]+cost[i][j]){
- 			return 1;
+ 			cout<<adj[i][j]<<" ";
+ 			distance[adj[i][j]]=distance[i]+cost[i][j];	
   		}
   	}
   }
