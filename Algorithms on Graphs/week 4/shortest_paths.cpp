@@ -1,10 +1,6 @@
 #include <bits/stdc++.h>
 #define ll long long int
 using namespace std;
-using std::vector;
-using std::queue;
-using std::pair;
-using std::priority_queue;
 
 void kush_gupta(){
   ios::sync_with_stdio(0);
@@ -24,7 +20,8 @@ void shortest_paths(vector<vector<ll> > &adj, vector<vector<ll> > &cost, ll s, v
     flag=0;
     for (ll i=1;i<adj.size();i++){
       for (ll j=0;j<adj[i].size();j++){
-        if(distance[adj[i][j]]>distance[i]+cost[i][j]){
+        if(distance[i]!=numeric_limits<long long>::max() 
+            && distance[adj[i][j]]>distance[i]+cost[i][j]){
           flag=1;
           distance[adj[i][j]]=distance[i]+cost[i][j];
           reachable[adj[i][j]]=1;
@@ -35,9 +32,11 @@ void shortest_paths(vector<vector<ll> > &adj, vector<vector<ll> > &cost, ll s, v
   queue <ll> q;
   for (ll i=1;i<adj.size();i++){
     for (ll j=0;j<adj[i].size();j++){
-      if(distance[adj[i][j]]>distance[i]+cost[i][j]){
+      if(distance[i]!=numeric_limits<long long>::max() 
+          && distance[adj[i][j]]>distance[i]+cost[i][j]){
         distance[adj[i][j]]=distance[i]+cost[i][j];
         if(shortest[adj[i][j]]){
+          shortest[adj[i][j]]=0;
           q.push(adj[i][j]);
         }
       }
